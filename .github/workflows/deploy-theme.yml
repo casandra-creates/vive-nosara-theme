@@ -1,7 +1,7 @@
 name: Deploy theme
 on:
   push:
-    branches: [main]
+    branches: ['**']
   workflow_dispatch:
 jobs:
   deploy:
@@ -10,7 +10,18 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
     steps:
       - uses: actions/checkout@v4
+      - name: Set theme name
+        id: theme
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "name=vive-nosara-theme" >> $GITHUB_OUTPUT
+            echo "Deploying as ACTIVE theme: vive-nosara-theme"
+          else
+            echo "name=vive-nosara-theme-staging" >> $GITHUB_OUTPUT
+            echo "Deploying as STAGING theme: vive-nosara-theme-staging"
+          fi
       - uses: TryGhost/action-deploy-theme@v1
         with:
           api-url: ${{ secrets.GHOST_ADMIN_API_URL }}
           api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
+          theme-name: ${{ steps.theme.outputs.name }}
