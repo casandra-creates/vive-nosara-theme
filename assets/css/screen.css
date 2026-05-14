@@ -2073,6 +2073,12 @@ Search                         LOGO                    Login Subscribe
     margin-block: 72px 32px;
 }
 
+/* About page: cap the hero image height so it doesn't dominate the layout */
+.page-about .gh-article-image img {
+    max-height: 400px;
+    object-fit: cover;
+}
+
 /* 14.3. Page without header */
 
 .page-template .gh-content:only-child > *:first-child:not(.kg-width-full) {
