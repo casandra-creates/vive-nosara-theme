@@ -2168,8 +2168,23 @@ unless a heading is the very first element in the post content */
 }
 
 .gh-content a {
-    color: var(--ghost-accent-color);
+    /* Body text stays black for readability. The brand accent color is used only
+       for the underline, giving a clear "this is a link" cue without the color
+       contrast problem of raw lime text on white. */
+    color: var(--color-darker-gray);
     text-decoration: underline;
+    text-decoration-color: var(--ghost-accent-color);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
+}
+
+.gh-content a:hover {
+    /* On hover, the text picks up the accent color (now visible since it's
+       paired with the underline as a hover affordance) and the underline
+       thickens slightly. */
+    color: var(--ghost-accent-color);
+    text-decoration-thickness: 3px;
+    opacity: 1;
 }
 
 .gh-content .kg-callout-card .kg-callout-text,
